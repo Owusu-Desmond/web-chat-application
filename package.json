@@ -2,9 +2,9 @@
   "name": "web-chat-application",
   "version": "1.0.0",
   "description": "A project to learn socket.io",
-  "main": "script.js",
+  "main": "index.mjs",
   "scripts": {
-    "dev": "nodemon script.js"
+    "start": "node ."
   },
   "author": "Desmond Owusu",
   "license": "ISC",

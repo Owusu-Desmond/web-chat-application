@@ -4,7 +4,7 @@
   "description": "A project to learn socket.io",
   "main": "index.mjs",
   "scripts": {
-    "start": "node ."
+    "start": "nodemon index.mjs"
   },
   "author": "Desmond Owusu",
   "license": "ISC",

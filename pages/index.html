@@ -11,11 +11,28 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
+        // retreving username from the input when the user click on the button 'let me chat' and send to the server side
+        function setUsername() {
+            socket.emit('setUsername', document.getElementById('username').value);
+        }   
+        //declearing variable user
+        let user;
 
-        socket.on('newclientconnect', (data) => {
-            document.body.innerHTML = "";
-            document.write(data.discription);
-        })
+        socket.on('userExits', (data) => {
+            document.getElementById('error-container').innerHTML = data;
+        });
+
+        socket.on('setUser', (data) => {
+            user = data.username;
+            document.body.innerHTML = '<input type="text" id="message">\
+         <button type="button" name="button" onclick="sendMessage()">Send</button>\
+         <div id="message-container"></div>'
+        });
+
+
     </script>
+    <div id="error-container"></div>
+    <input type="text" name="username" id="username" value="" placeholder="Enter your name!">
+    <button type="button" name="button" onclick="setUsername()">Let me chat!</button>
 </body>
 </html>

@@ -6,16 +6,21 @@ let users = ['admin'];
 io.on('connection', socket => {
     console.log('A user connected');
     
-    socket.on('setUsername', (data) => {
+    socket.on('setUsername', (data) => { 
         for(let i of users){
             if(i === data ){
                 socket.emit('userExits', `${data} username is 
                 taken try another user name.`)
                 
+            }else{
+                if(i == users[users.length - 1]){
+                    users.push(data);
+                    socket.emit('setUser' , {username : data});
+                    console.log(users); 
+                }
             }
+
         }
-         users.push(data);
-         socket.emit('setUser' , {username : data});
-        console.log(users);
+
     });
 }); 

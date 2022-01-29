@@ -4,12 +4,14 @@
   "description": "A project to learn socket.io",
   "main": "index.mjs",
   "scripts": {
-    "start": "nodemon index.mjs"
+    "start": "nodemon index.mjs",
+    "build": "npm i"
   },
   "author": "Desmond Owusu",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
+    "nodemon": "^2.0.15",
     "socket.io": "^4.4.1"
   }
 }

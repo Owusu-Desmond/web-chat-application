@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Hello world</h1>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        // Connect
         const socket = io();
-        // retreving username from the input when the user click on the button 'let me chat' and send to the server side
+
+        // Retreving username from the input when the user click on the button 'let me chat' and send to the server side
         function setUsername() {
             socket.emit('setUsername', document.getElementById('username').value);
-        }   
-        //declearing variable user
+        }
+        // Declaring variable user
         let user;
 
-        socket.on('userExits', (data) => {
+        // Check whether user exists
+        socket.on('userExists', data => {
             document.getElementById('error-container').innerHTML = data;
         });
 
-        socket.on('setUser', (data) => {
-            user = data.username;
-            document.body.innerHTML = '<input type="text" id="message">\
-         <button type="button" name="button" onclick="sendMessage()">Send</button>\
-         <div id="message-container"></div>'
+        // Set user
+        socket.on('setUser', data => {
+            user = data;
+            document.body.innerHTML =
+                '<input type="text" id="message">\
+                <button type="button" name="button" onclick="sendMessage()">Send</button>\
+                <div id="message-container"></div>'
         });
-
-
     </script>
     <div id="error-container"></div>
-    <input type="text" name="username" id="username" value="" placeholder="Enter your name!">
+    <input type="text" name="username" id="username" value="" placeholder="Enter your name!" required>
     <button type="button" name="button" onclick="setUsername()">Let me chat!</button>
 </body>
+
 </html>

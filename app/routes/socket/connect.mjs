@@ -1,26 +1,30 @@
 import io from "../../loaders/socket.mjs";
 
-var client = 0;
-let users = ['admin'];
-//Whenever someone connects this gets executed
+// Connecting users
+let users = [];
+// Whenever someone connects this gets executed
 io.on('connection', socket => {
-    console.log('A user connected');
-    
-    socket.on('setUsername', (data) => { 
-        for(let i of users){
-            if(i === data ){
-                socket.emit('userExits', `${data} username is 
-                taken try another user name.`)
-                
-            }else{
-                if(i == users[users.length - 1]){
-                    users.push(data);
-                    socket.emit('setUser' , {username : data});
-                    console.log(users); 
-                }
-            }
+    // Current user
+    let user;
 
+    // Set username event
+    socket.on('setUsername', data => {
+        if (users.indexOf(data) > -1) 
+            // User exists
+            socket.emit('userExists', `"${data}" is 
+                taken, please try another user name.`)
+        else {
+            // Set current user to data
+            user = data;
+            // Push to user list
+            users.push(data);
+            // Set user
+            socket.emit('setUser', data);
         }
-
     });
+
+    // If user disconnects
+    socket.on("disconnect", () => 
+        users = users.filter(v => v !== user)
+    )
 }); 
